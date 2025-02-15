@@ -23,7 +23,7 @@ export default function SigninDialog({
   closeDialog: (e: boolean) => void;
 }) {
   // const { user, signInWithGoogle } = useAuth();
-  const { user, setUser } = useUserDetail();
+  const { user } = useUserDetail();
   const router = useRouter();
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""; // Replace with actual Client ID
   const redirectUri = encodeURIComponent(
