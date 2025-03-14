@@ -1,24 +1,31 @@
 import { create } from 'zustand';
 
-// Define the shape of the state
 interface Message {
   role: string;
   content: string;
 }
 
-// Define the shape of the Zustand store
 interface MessageState {
-  message: Message;
-  setMessage: (newMessage: Message) => void;
+  message: Message[];
+  setMessage: (newMessages: Message | Message[], append?: boolean) => void;
 }
 
-// Create the Zustand store
 const useMessageStore = create<MessageState>((set) => ({
-  message: { role: "", content: "" }, // Initial state
-  setMessage: (newMessage) => set({ message: newMessage }), // Function to update state
+  message: [],
+  setMessage: (newMessages, append = false) =>
+    set((state) => {
+      if (append) {
+        return {
+          message: Array.isArray(newMessages)
+            ? [...state.message, ...newMessages]
+            : [...state.message, newMessages],
+        };
+      } else {
+        return {
+          message: Array.isArray(newMessages) ? newMessages : [newMessages],
+        };
+      }
+    }),
 }));
 
 export default useMessageStore;
-
-
-
