@@ -110,6 +110,8 @@ const CodeView = () => {
     const PROMPT = JSON.stringify(message) + "  " + Prompt.CODE_GEN_PROMPT;
     const result = await axios.post("/api/gen-ai-code", {
       prompt: PROMPT,
+    },{
+      timeout:60000
     });
     const aiRes = Array.isArray(result.data) ? result.data[0] : result.data;
     const AIResChat = {
