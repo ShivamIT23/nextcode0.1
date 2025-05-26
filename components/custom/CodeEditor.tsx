@@ -1,3 +1,5 @@
+"use client"
+
 import {
   SandpackFileExplorer,
   SandpackLayout,
@@ -7,10 +9,13 @@ import {
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { useFilesStore } from "@nextCode/context/files_detail";
+import { useState } from "react";
 
 export default function CodeEditor({ activeTab }: { activeTab: string }) {
   const { sandpack } = useSandpack();
-  const {setFileCode} = useFilesStore()
+  const {setFileCode } = useFilesStore();
+  const [updateKey, setUpdateKey] = useState(0);
+
 
 
   return (
@@ -27,12 +32,15 @@ export default function CodeEditor({ activeTab }: { activeTab: string }) {
             onChange={(newCode) => {
               setFileCode(sandpack.activeFile, newCode);
               sandpack.updateFile(sandpack.activeFile, newCode); // Ensure Sandpack updates the code
+              setUpdateKey((prev) => prev+1);
             }}
             style={{ height: "80vh", minWidth: '80%', maxWidth:'80%' }}
           />
         </>
       )}
       <SandpackPreview
+      key={updateKey}
+      showRefreshButton= {true}
         style={{
           height: "80vh",
           display: activeTab === "preview" ? "flex" : "none",

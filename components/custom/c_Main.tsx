@@ -11,6 +11,7 @@ import { api } from "@nextCode/convex/_generated/api";
 import { useMutation } from "convex/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useFilesStore } from "@nextCode/context/files_detail";
 
 const Suggestions = [
   "Create TODO App in React",
@@ -24,6 +25,7 @@ const Suggestions = [
 export default function Main() {
   const [userInput, setUserInput] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
+  const {resetFiles} = useFilesStore();
   const { user, setUser } = useUserDetail();
   const getUser = useMutation(api.users.getUser);
   const createWorkBench = useMutation(api.workBench.createWorkBench);
@@ -78,7 +80,7 @@ export default function Main() {
           user: user._id,
           message: [msg],
         });
-        console.log(workBenchId);
+        resetFiles();
         router.push("/workBench/" + workBenchId);
         setLoading(false);
       } else {

@@ -39,7 +39,6 @@ export default function GuestSigninDialogue({
       };
       localStorage.setItem("guest_id", guestId);
       const userConvex = await createGuest(newGuest);
-      console.log(userConvex);
       if (!userConvex) throw new Error("Failed to create user");
       setUser({ ...newGuest, isGuest: false ,_id:userConvex});
       closeDialog(false);

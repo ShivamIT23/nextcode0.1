@@ -5,7 +5,7 @@ import { SidebarProvider } from "@nextCode/components/ui/sidebar";
 
 export default function Page() {
   return (
-    <SidebarProvider className="max-h-fit min-h-min pb-5">
+    <SidebarProvider defaultOpen={false} className="max-h-fit min-h-min pb-5">
       <div className="flex max-h-fit w-lvw">
         <SideBar />
         <div className="flex-1 px-10 pt-4">

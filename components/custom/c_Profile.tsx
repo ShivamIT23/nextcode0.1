@@ -57,7 +57,6 @@ export default function Profile() {
                   <Image
                   width={35}
                   height={35}
-                    onClick={() => console.log(user)}
                     src={`${user.img}`}
                     alt="User Image"
                   />
